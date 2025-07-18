@@ -1,0 +1,11 @@
+[project]
+name = "rag-from-scratch"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.3.1",
+    "pandas>=2.3.1",
+    "pypdf>=5.8.0",
+]
