@@ -27,8 +27,3 @@ def test_loader_load_files_with_exclude_file_names():
     data = loader.load_files()
 
     assert "history_of_cricker.md" not in data.keys(), "history_of_cricker.md should not be in data"
-
-if __name__ == "__main__":
-    test_loader_load_files()
-    test_loader_load_files_with_exclude_file_types()
-    test_loader_load_files_with_exclude_file_names()

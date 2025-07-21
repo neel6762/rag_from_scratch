@@ -12,8 +12,3 @@ def test_indexer_with_loader():
     
     assert indexer.data is not None, "Data should not be None"
     assert isinstance(indexer.data, dict), "Data should be a dictionary"
-
-
-if __name__ == "__main__":
-    test_loader()
-    test_indexer_with_loader()
