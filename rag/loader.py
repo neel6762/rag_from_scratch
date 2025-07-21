@@ -1,10 +1,16 @@
+"""
+This module is responsible for loading the data from the data directory.
+It supports the following file types: PDF, TXT, CSV.
+"""
+
 import os
 import logging
 import pandas as pd
 from pypdf import PdfReader
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s [%(filename)s]: %(message)s')
+logging.basicConfig(format='%(levelname)s [%(filename)s]: %(message)s')
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 class Loader:
 
@@ -19,6 +25,14 @@ class Loader:
         self.exclude_file_types = exclude_file_types
         self.exclude_file_names = exclude_file_names
 
+    def peek_data(self, data: dict[str, str]):
+
+        for key, value in data.items():
+            print(f"File: {key}")
+            print(f"\nContent: {value[:100]}")
+            print("-" * 100)
+            print("\n")
+    
     
     def load_files(self) -> dict[str, str]:
 
@@ -43,10 +57,16 @@ class Loader:
                 
                 if file.endswith('.pdf'):
                     data[file] = self._load_pdf(os.path.join(self.data_dir, file))
-                elif file.endswith('.txt'):
+                elif file.endswith('.txt') or file.endswith('.md'):
                     data[file] = self._load_text(os.path.join(self.data_dir, file))
+                elif file.endswith('.csv'):
+                    data[file] = self._load_csv(os.path.join(self.data_dir, file))     
+                else:
+                    logger.warning(f"Unsupported file type {file}")
+                    continue
 
         return data
+    
     
     def _load_pdf(self, file: str) -> str:
 
@@ -81,7 +101,6 @@ class Loader:
             logger.error(f"Error loading CSV file {file} - {e}")
             return None
     
-
 if __name__ == '__main__':
     
     loader = Loader(data_dir='data', exclude_file_types=['.csv'])
