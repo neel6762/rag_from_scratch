@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s [%(filename)s]: %(message)s')
+logging.basicConfig(level=logging.ERROR, format='%(levelname)s [%(filename)s]: %(message)s')
 logger = logging.getLogger(__name__)
 
 LLM_CLIENTS = {

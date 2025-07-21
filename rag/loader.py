@@ -33,8 +33,8 @@ class Loader:
             print("-" * 100)
             print("\n")
     
-    
-    def load_files(self) -> dict[str, str]:
+
+    def load_files(self) -> dict[str, any]:
 
         data = {}
 
