@@ -11,4 +11,6 @@ wheels/
 
 # directories
 data/
-notes/ 
+notes/
+
+.DS_Store

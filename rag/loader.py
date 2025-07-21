@@ -4,7 +4,7 @@ import pandas as pd
 from pypdf import PdfReader
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s [%(filename)s]: %(message)s')
-logger = logging.getLogger("loader")
+logger = logging.getLogger(__name__)
 
 class Loader:
 
