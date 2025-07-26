@@ -4,7 +4,7 @@ import logging
 from dotenv import load_dotenv
 
 load_dotenv()
-
+logging.basicConfig(level=logging.ERROR, format='%(levelname)s [%(filename)s]: %(message)s')
 logger = logging.getLogger(f"llm_config.{__name__}")
 
 LLM_CLIENTS = {
@@ -49,4 +49,3 @@ class LLMConfig:
         except Exception as e:
             logger.error(f"Unexpected error initializing LLM client for '{self.client_name}': {e}")
             raise
-    

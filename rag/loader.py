@@ -8,9 +8,8 @@ import logging
 import pandas as pd
 from pypdf import PdfReader
 
-logging.basicConfig(format='%(levelname)s [%(filename)s]: %(message)s')
+logging.basicConfig(level=logging.ERROR, format='%(levelname)s [%(filename)s]: %(message)s')
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 class Loader:
 
