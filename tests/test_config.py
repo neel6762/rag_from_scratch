@@ -1,29 +1,22 @@
 from rag import LLMConfig
+import pytest
 
-def test_ollama_llm_config():
+@pytest.mark.parametrize("client_name", ["ollama", "openai", "random"])
+def test_llm_config(client_name):
+    
+    if client_name == "random":
+        with pytest.raises(ValueError):
+            LLMConfig(client_name=client_name)
+        return
 
-    ollama_config = LLMConfig(client_name="ollama")
-    assert ollama_config.client_name == "ollama", "Client name should be ollama"
+    llm_config = LLMConfig(client_name=client_name)
+    assert llm_config.client_name == client_name, "Client name should be " + client_name
 
     try:
-        response = ollama_config.client.chat.completions.create(
-            model=ollama_config.model,
-            messages=[{"role": "user", "content": "Hello from Ollama!"}]
+        response = llm_config.client.chat.completions.create(
+            model=llm_config.model,
+            messages=[{"role": "user", "content": "Hello from " + client_name + "!"}]
         )
         assert response.choices[0].message.content is not None, "Response should not be None"
     except Exception as e:
-        assert False, f"Failed to get response from Ollama: {e}"        
-
-
-def test_openai_llm_config():
-    openai_config = LLMConfig(client_name="openai")
-    assert openai_config.client_name == "openai", "Client name should be openai"
-
-    try:
-        response = openai_config.client.chat.completions.create(
-            model=openai_config.model,
-            messages=[{"role": "user", "content": "Hello from OpenAI!"}]
-        )
-        assert response.choices[0].message.content is not None, "Response should not be None"
-    except Exception as e:
-        assert False, f"Failed to get response from OpenAI: {e}"
+        assert False, f"Failed to get response from {client_name}: {e}"        

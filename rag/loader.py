@@ -101,7 +101,3 @@ class Loader:
             logger.error(f"Error loading CSV file {file} - {e}")
             return None
     
-if __name__ == '__main__':
-    
-    loader = Loader(data_dir='data', exclude_file_types=['.csv'])
-    files = loader.load_files()

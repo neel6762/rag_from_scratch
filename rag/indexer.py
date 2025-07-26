@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 class Indexer:
     
-    def __init__(self, data: dict[str, any], llm_config: LLMConfig):
+    def __init__(self, data: dict[str, any], llm_client: LLMConfig):
         self.data = data
-        self.llm_config = llm_config
+        self.llm_client = llm_client
+        
