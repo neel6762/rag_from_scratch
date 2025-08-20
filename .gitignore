@@ -8,10 +8,11 @@ wheels/
 
 # Virtual environments
 .venv
-.env
+**/.env
 
 # directories
 data/
 notes/
+chroma_db/
 
 .DS_Store

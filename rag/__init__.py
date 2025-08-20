@@ -1,3 +1,3 @@
-from .indexer import DocSplitter
+from .indexer import Vectorizer
 from .loader import Loader
-from .config import LLMConfig
+from .llm_config import LLMConfig

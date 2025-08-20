@@ -3,9 +3,10 @@ import os
 import logging
 from dotenv import load_dotenv
 
-load_dotenv()
 logging.basicConfig(level=logging.ERROR, format='%(levelname)s [%(filename)s]: %(message)s')
 logger = logging.getLogger(f"llm_config.{__name__}")
+
+load_dotenv()
 
 LLM_CLIENTS = {
     "ollama": {
@@ -16,12 +17,22 @@ LLM_CLIENTS = {
     "openai": {
         "base_url": os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"),
         "api_key": os.getenv("OPENAI_API_KEY"),
-        "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        "embedding_model": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
     }
 }
 
 class LLMConfig:
-    def __init__(self, client_name: str = "ollama", model: str = None):
+    """Configures the LLM client and model.
+    """
+
+    def __init__(self, client_name: str = "ollama"):
+        """Initialize the LLMConfig class.
+
+        Args:
+            client_name (str): The name of the LLM client.
+        """
+        
         client_name = client_name.lower().strip()
         
         if client_name not in LLM_CLIENTS:
@@ -29,7 +40,6 @@ class LLMConfig:
 
         self.client_name = client_name
         self.config = LLM_CLIENTS[self.client_name]
-        self.model = model if model else self.config["model"]
 
         if not self.config["api_key"] or not self.config["base_url"]:
             raise ValueError(f"Invalid configuration for '{self.client_name}': API key or base URL missing")
