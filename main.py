@@ -1,13 +1,16 @@
+import logging
 from rag import Loader, Vectorizer
+
+# Configure logging to display INFO messages
+logging.basicConfig(level=logging.INFO, format='%(levelname)s [%(filename)s]: %(message)s')
 
 if __name__ == "__main__":
 
     # ------------------------------------------------------------
     # LOAD DATA
     # ------------------------------------------------------------
-    loader = Loader(data_dir="data", exclude_file_types=["csv"])
+    loader = Loader(data_dir="data", exclude_file_types=["csv", "pdf"])
     data = loader.load_files()
-    loader.peek_data(data)
 
     print(f"Loaded {len(data)} files")
 
@@ -18,6 +21,6 @@ if __name__ == "__main__":
     
     vectorizer = Vectorizer(data=data, chunk_size=500, chunk_overlap=150)
     vectorizer.vectorize_docs()
-    print(f"Number of chunks: {len(vectorizer.chunks[file_name])}")
-    print(f"Number of embeddings: {len(vectorizer.embeddings[file_name].data)}")
 
+    print(vectorizer.get_file_chunks(file_name)[0])
+    print(vectorizer.get_file_embeddings(file_name)[0])
