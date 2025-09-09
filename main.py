@@ -19,8 +19,5 @@ if __name__ == "__main__":
     # ------------------------------------------------------------
     file_name = "history_of_cricket.md"
     
-    vectorizer = Vectorizer(data=data, chunk_size=500, chunk_overlap=150)
+    vectorizer = Vectorizer(data=data, chunk_size=300, chunk_overlap=100)
     vectorizer.vectorize_docs()
-
-    print(vectorizer.get_file_chunks(file_name)[0])
-    print(vectorizer.get_file_embeddings(file_name)[0])
